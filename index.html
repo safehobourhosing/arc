@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Habour Homes</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-blue: #004b87;
+            --dark-blue: #00264d;
+            --light-blue: #e6f0fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-gray: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-contact {
+            font-size: 0.9rem;
+            text-align: right;
+            color: var(--text-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 38, 77, 0.7), rgba(0, 38, 77, 0.7)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 5%;
+            margin-top: 70px;
+        }
+
+        .hero-content h1 {
+            color: var(--white);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        /* Search Section */
+        .search-bar {
+            background-color: var(--white);
+            padding: 2rem 5%;
+            margin: -50px 5% 0;
+            position: relative;
+            z-index: 10;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .search-form select, .search-form button {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        /* Listings Section */
+        .listings {
+            padding: 5rem 5%;
+            background-color: var(--bg-gray);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .location {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* About & Stats Section */
+        .about {
+            padding: 5rem 5%;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 5%;
+            background-color: var(--light-blue);
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .author {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .author-title {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            margin-top: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            margin: 0 10px;
+        }
+
+
+
+        /* Scroll Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* In a real build, add a hamburger menu here */
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .contact {
+                grid-template-columns: 1fr;
+            }
+        }
+       
+.profile {
+  display: flex;          /* puts image and text side by side */
+  align-items: center;    /* aligns them vertically */
+  gap: 10px;              /* space between image and text */
+}
+
+.profile-pic {
+  width: 60px;            /* SMALLER size */
+  height: 60px;
+  border-radius: 50%;     /* round shape */
+  object-fit: cover;      /* keeps it clean */
+}
+
+.profile-text h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.profile-text p {
+  margin: 0;
+  font-size: 12px;
+  color: gray;
+}
+        
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">safe habour homes</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#listings">Listings</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-contact hidden-mobile">
+            <strong>+16624395439</strong><br>
+           safeharborhomes424@gmail.com
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Real Estate Investment</h1>
+            <p>Elite homes that appreciate in value. Discover luxury properties and architectural roofing excellence crafted for Rome (Osita) and beyond.</p>
+            <a href="#listings" class="btn">Explore our listings</a>
+            <a href="#contact" class="btn btn-outline" style="background: white;">Schedule a viewing</a>
+        </div>
+    </header>
+
+    <section class="search-bar fade-in">
+        <form class="search-form">
+            <select>
+                <option value="">Any Location</option>
+                <option value="osita">Rome (Osita)</option>
+                <option value="abuja"></option>
+            </select>
+            <select>
+                <option value="">Any Price</option>
+                <option value="100k-500k">$100k - $500k</option>
+                <option value="500k-1m">$500k - $1M</option>
+                <option value="1m+">$1M+</option>
+            </select>
+            <select>
+                <option value="">Property Type</option>
+                <option value="luxury">Luxury Estate</option>
+                <option value="villa">Architectural Villa</option>
+                <option value="renovation">Premium Renovation</option>
+            </select>
+            <button type="submit" class="btn">Search Properties</button>
+        </form>
+    </section>
+
+    <section id="listings" class="listings">
+        <div class="fade-in">
+            <h2>Portfolio Highlights</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: var(--text-light); max-width: 600px; margin-left: auto; margin-right: auto;">
+                High-value properties that define excellence. Each property reflects our commitment to architectural integrity and premium craftsmanship. These are homes built to appreciate.
+            </p>
+        </div>
+
+        <div class="grid-container fade-in">
+            <div class="card">
+                <img src="project2.jpg" alt="Luxury Home" class="card-img">
+                <div class="card-content">
+                    <div class="price">$850,000</div>
+                    <div class="location">📍 Rome (Osita)</div>
+                    <p>Curated high-end home showcasing architectural excellence and premium finishes.</p>
+                    <a href="#contact" class="btn" style="margin-top: 1rem; width: 100%; text-align: center;">View Details</a>
+                </div>
+            </div>
+
+            <div class="card">
+
+                <img src="project3.jpg" alt="Luxury Home" class="card-img">
+                <div class="card-content">
+                    <div class="price">$1,200,000</div>
+                    <div class="location">📍 Rome (Osita)</div>
+                    <p>Elite property featuring transformative property enhancements and superior roofing.</p>
+                    <a href="#contact" class="btn" style="margin-top: 1rem; width: 100%; text-align: center;">View Details</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="project1.jpg" alt="Luxury Home" class="card-img">
+                <div class="card-content">
+                    <div class="price">$450,000</div>
+                    <div class="location">📍 Rome (Osita)</div>
+                    <p>Modern estate with a focus on architectural integrity and long-term value appreciation.</p>
+                    <a href="#contact" class="btn" style="margin-top: 1rem; width: 100%; text-align: center;">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about fade-in">
+        <h2>Our Track Record</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Elite properties transformed and delivered. safe habour homes has established itself as the trusted partner for discerning clients seeking architectural excellence and luxury property enhancement in osita most prestigious markets and Rome (Osita).
+        </p>
+        
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>50+</h3>
+                <h4>Elite Properties Enhanced</h4>
+                <p>High-value homes elevated through architectural upgrades and premium roofing solutions.</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <h4>Client Satisfaction</h4>
+                <p>Every project delivered with unwavering commitment to quality and architectural integrity.</p>
+            </div>
+            <div class="stat-item">
+                <h3>5+</h3>
+                <h4>Years of Expertise</h4>
+                <p>Trusted by discerning property owners across elite markets.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="fade-in">Trusted by Elite Property Owners</h2>
+        <div class="grid-container fade-in">
+            <div class="testimonial-card">
+                <p>"safe habour homes elevated our Rome property beyond expectations. Their roofing expertise and architectural vision added significant value."</p>
+                
+                <div class="profile">
+                    <img src="project4.jpg" class="profile-pic">
+                  
+                    <div class="profile-text">
+                      <h4>Sofia Romano</h4>
+                      <p>Property investor, Osita</p>
+                    </div>
+                  </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p>"The team delivered flawless craftsmanship on our luxury home renovation. Professional, reliable, and genuinely invested in quality outcomes."</p>
+                <div class="profile">
+                    <img src="project5.jpg" class="profile-pic">
+                  
+                    <div class="profile-text">
+                      <h4>Adison james</h4>
+                      <p>Property investor, Osita</p>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p>"Their architectural upgrades transformed our property's aesthetic and market position. The attention to detail is exceptional and rare."</p>
+                <div class="profile">
+                    <img src="project7.jpg" class="profile-pic">
+                  
+                    <div class="profile-text">
+                      <h4>isabella Ferrari</h4>
+                      <p>Real estate entrepreneur</p>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p>"Working with safe habour home meant working with someone who truly understands luxury construction. Results speak for themselves."</p>
+
+                <div class="profile">
+                    <img src="project6.jpg" class="profile-pic">
+                  
+                    <div class="profile-text">
+                      <h4>Giulia Bianchi</h4>
+                      <p>invesmwnt manager</p>
+                    </div>
+                  </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="contact fade-in">
+        <div>
+            <h2>Start Your Project</h2>
+            <p>Ready to elevate your property's value? Contact us to discuss architectural excellence, roofing solutions, and premium real estate investments.</p>
+            
+            <div class="contact-info">
+                <h3>Direct Contact</h3>
+                <p><strong>WhatsApp / Phone:</strong> <a href="tel:+12345678900">+16624395439</a></p>
+                <p><strong>Email:</strong> <a href="mailto:email@mybusiness.com">safeharborhomes424@gmail.com</a></p>
+            </div>
+        </div>
+
+        <div>
+            <form class="testimonial-card">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+1 (234) 567-8900" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Project Type</label>
+                    <select id="type">
+                        <option value="buying">Buying a Luxury Property</option>
+                        <option value="architectural">Architectural Design & Renovation</option>
+                        <option value="roofing">Premium Roofing Solutions</option>
+                        <option value="other">Other Inquiry</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" rows="4" placeholder="Tell us about your property goals..." required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">LinkedIn</a> | <a href="#">Instagram</a> | <a href="#">Facebook</a>
+        </div>
+        <p>&copy; 2026 Safe hobour housing. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const faders = document.querySelectorAll('.fade-in');
+
+            const appearOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('appear');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+    </script>
+</body>
+</html>
